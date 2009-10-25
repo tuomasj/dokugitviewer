@@ -95,41 +95,10 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
                                     $src= substr($message, $index+1+strlen($key));
                                     $value = substr($src, 0, find_end($src));
                                     $index += strlen($element.$value); 
-                                    $renderer->internallink($data[$elements[$element]].'#'.$element.$value, $element.$value);
+                                    $renderer->internallink($data[$elements[$element]].'#'.$element.$value, '#'.$element.$value);
 
                                 }
                             }
-                            /*
-                            $space_hack = true;
-                            $pos = find_end($message, $index);
-							if($pos === FALSE && $index < strlen($message))
-							{
-								$pos = strlen($message);
-								$space_hack = false;
-							}
-                            $word = substr($message, $index+1, $pos-$index);
-                            echo('<pre>'.$pos.' '.$index.'</pre>');
-							foreach(array_keys($elements) as $element)
-							{
-								$el = '#'.$element;
-								if(strstr($word, $element))
-								{
-									$value = trim(substr($word, strlen($element)));
-									if(is_numeric($value))
-									{
-										$renderer->doc .= $renderer->internallink($data[$elements[$element]].'#'.$word, '#'.$word);			
-										break;
-									}
-
-								}
-							}
-
-							if($space_hack)
-                                $renderer->doc .= ' ';
-                             
-                            $index += $pos-$index;
-                             */
-
 						}
 						else
 							$renderer->doc .= $char;
