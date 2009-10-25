@@ -2,10 +2,22 @@
  
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-require_once(DOKU_PLUGIN.'syntax.php');
+require_once(DOKU_PLUGIN.'/syntax.php');
 
 // include git utils, they should be located on same directory with syntax.php
 require_once(dirname(__FILE__).'/git-utils.inc.php');
+
+function find_end($string, $offset = 0)
+{
+    if($offset >= strlen($string))
+        return FALSE;
+    for($i = $offset; $i < strlen($string); $i++)
+    {
+        if(!is_numeric($string[$i]))
+            return $i;
+    }
+    return strlen($string);
+}
 
 class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
  
@@ -71,15 +83,32 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
 					{
 						$char = $message[$index];
 						if($char == '#')
-						{
-							$space_hack = true;
-							$pos = strpos($message, ' ', $index);
+                        {
+                            foreach(array_keys($elements) as $element)
+                            {
+                                $cmp = '#'.$element;
+                                $src = substr($message, $index, strlen($cmp));
+                                if(strstr($src, $cmp))
+                                {
+                                    $key = substr($message, $index+1, strlen($cmp)-1);
+                                    
+                                    $src= substr($message, $index+1+strlen($key));
+                                    $value = substr($src, 0, find_end($src));
+                                    $index += strlen($element.$value); 
+                                    $renderer->internallink($data[$elements[$element]].'#'.$element.$value, $element.$value);
+
+                                }
+                            }
+                            /*
+                            $space_hack = true;
+                            $pos = find_end($message, $index);
 							if($pos === FALSE && $index < strlen($message))
 							{
 								$pos = strlen($message);
 								$space_hack = false;
 							}
-							$word = substr($message, $index+1, $pos-$index);
+                            $word = substr($message, $index+1, $pos-$index);
+                            echo('<pre>'.$pos.' '.$index.'</pre>');
 							foreach(array_keys($elements) as $element)
 							{
 								$el = '#'.$element;
@@ -89,15 +118,17 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
 									if(is_numeric($value))
 									{
 										$renderer->doc .= $renderer->internallink($data[$elements[$element]].'#'.$word, '#'.$word);			
-										break;										
+										break;
 									}
 
 								}
 							}
 
 							if($space_hack)
-								$renderer->doc .= ' ';
-							$index += $pos-$index;
+                                $renderer->doc .= ' ';
+                             
+                            $index += $pos-$index;
+                             */
 
 						}
 						else
