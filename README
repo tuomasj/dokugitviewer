@@ -1,0 +1,7 @@
+Git repository viewer plugin for Dokuwiki
+
+Requirements:
+  Bookmark-plugin installed for Dokuwiki
+  PHP5
+  Git
+
