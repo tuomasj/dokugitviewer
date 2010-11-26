@@ -9,7 +9,7 @@ function run_git($command, $repo)
 		
 	$output = array();
 	$ret = 0;
-	$c = GIT_EXEC.' --git-dir='.ROOT_DIR.$repo.'/.git '.$command;
+	$c = GIT_EXEC.' --git-dir='.ROOT_DIR.$repo.'/ '.$command;
 	exec($c, $output, $ret);
 	if ($ret != 0) { 
 		//debug

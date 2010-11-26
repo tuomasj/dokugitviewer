@@ -1,11 +1,12 @@
 <?php
- 
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
-if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-require_once(DOKU_PLUGIN.'/syntax.php');
+// must be run within Dokuwiki
+if(!defined('DOKU_INC')) die();
 
+if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+require_once(DOKU_PLUGIN.'syntax.php');
+ 
 // include git utils, they should be located on same directory with syntax.php
-require_once(dirname(__FILE__).'/git-utils.inc.php');
+require_once('git-utils.inc.php');
 
 function find_end($string, $offset = 0)
 {
