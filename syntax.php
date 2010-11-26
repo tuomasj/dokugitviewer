@@ -21,17 +21,6 @@ function find_end($string, $offset = 0)
 
 class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
  
-    function getInfo(){
-        return array(
-            'author' => 'Tuomas Jomppanen',
-            'email'  => 'www.jomppanen.com',
-            'date'   => '2009-10-25',
-            'name'   => 'DokuGitViewer',
-            'desc'   => 'Git repository log viewer',
-            'url'    => 'http://www.dokuwiki.org/wiki:plugins',
-        );
-    }
- 
     function getType(){
         return 'substition';
     }
