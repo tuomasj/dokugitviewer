@@ -1,0 +1,7 @@
+base dokugitviewer
+author Tuomas Jomppanen
+email 
+date 2010-11-26
+name Doku-Git-Viewer
+desc display git commits and link bug-id and feature-ids
+url http://www.dokuwiki.org/plugin:dokugitviewer
