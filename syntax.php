@@ -63,7 +63,11 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
 					$limit = (int)($data['limit']);
 				else
 					$limit = 10;
-				$log = git_get_log($data['repository'], $limit);
+			        if (empty($data['bare']))
+			          $bare=false;
+			        else
+			          $bare=true;
+				$log = git_get_log($data['repository'], $limit,$bare);
 				$renderer->doc .= '<ul class="dokugitviewer">';
 				foreach($log as $row)
 				{
