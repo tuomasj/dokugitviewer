@@ -35,7 +35,7 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
     }
  
  
-    function handle($match, $state, $pos, &$handler)
+    function handle($match, $state, $pos, Doku_Handler $handler)
 	{
 		$start = strlen('<dokugitviewer:');
 		$end = -1;
@@ -53,7 +53,7 @@ class syntax_plugin_dokugitviewer extends DokuWiki_Syntax_Plugin {
         return $return;
     }
  
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
 		$elements = array('ft' => 'features',
 						  'bug' => 'bugs');
         if($mode == 'xhtml'){
